@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>QuickAccord</title>
+		
+		<style type="text/css">
+			* {
+				margin:0;
+				border:0;
+				padding:0;
+				font-family:arial, helvetica, sans-serif;
+			}
+			
+			body {
+				width:100%;
+				padding:32px;
+				-webkit-box-sizing:border-box;
+				-moz-box-sizing:border-box;
+				box-sizing:border-box;
+			}
+			
+			ul {
+				list-style:none;
+			}
+			li {
+				margin:16px 0;
+				-webkit-border-radius:8px;
+				-moz-border-radius:8px;
+				border-radius:8px;
+				border:3px solid #D0D0D0;
+			}
+			a {
+				font-weight:bold;
+				text-transform:uppercase;
+				color:#FF3311;
+				text-decoration:none;
+			}
+			
+			.accordion-trigger {
+				background-color:#D0D0D0;
+				display:block;
+				padding:24px;
+				position:relative;
+			}
+			.accordion-trigger:after {
+				display:block;
+				position:absolute;
+				right:16px;
+				top:50%;
+				transform:translateY(-50%);
+				font-size:2em;
+			}
+			.accordion-trigger.expanded:after {
+				content:"-";
+			}
+			.accordion-trigger.collapsed:after {
+				content:"+";
+			}
+			
+			.accordion-content {
+				overflow:hidden;
+				-webkit-transition:height 0.25s;
+				-moz-transition:height 0.25s;
+				transition:height 0.25s;
+				box-sizing:border-box;
+				-moz-box-sizing:border-box;
+				-webkit-box-sizing:border-box;
+			}
+			.accordion-content.expanded {
+				height:auto;
+			}
+			.accordion-content.collapsed {
+				height:0;
+			}
+			.accordion-content p {
+				padding:16px;
+			}
+		</style>
+	</head>
+	<body>
+		<ul>
+			<li>
+				<a href="#accordion1" class="accordion-trigger" data-accord-group="group1">Accordion 1</a>
+				<div id="accordion1" class="accordion-content collapsed">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non nisi et nulla vehicula cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas id arcu at purus imperdiet aliquam. Cras lacinia faucibus ligula, id lacinia turpis lobortis quis. Maecenas non accumsan massa. Cras et malesuada magna, porta tempor sem. Maecenas pellentesque consequat dolor ac lobortis. Ut sed ipsum iaculis neque pretium eleifend. Suspendisse lacus nisi, fermentum non turpis ut, iaculis efficitur purus. Phasellus tristique et nisl et cursus. Ut felis metus, cursus eu blandit a, imperdiet a odio. Donec posuere ut lectus eget semper. Aenean sed sem consectetur, venenatis magna eget, egestas lorem. Proin rutrum ac nunc sed laoreet. Aenean efficitur lacus turpis, vel facilisis tellus efficitur in.</p>
+				</div>
+			</li>
+			<li>
+				<a href="#accordion2" class="accordion-trigger" data-accord-group="group1">Accordion 2</a>
+				<div id="accordion2" class="accordion-content collapsed">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non nisi et nulla vehicula cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas id arcu at purus imperdiet aliquam. Cras lacinia faucibus ligula, id lacinia turpis lobortis quis. Maecenas non accumsan massa. Cras et malesuada magna, porta tempor sem. Maecenas pellentesque consequat dolor ac lobortis. Ut sed ipsum iaculis neque pretium eleifend. Suspendisse lacus nisi, fermentum non turpis ut, iaculis efficitur purus. Phasellus tristique et nisl et cursus. Ut felis metus, cursus eu blandit a, imperdiet a odio. Donec posuere ut lectus eget semper. Aenean sed sem consectetur, venenatis magna eget, egestas lorem. Proin rutrum ac nunc sed laoreet. Aenean efficitur lacus turpis, vel facilisis tellus efficitur in.</p>
+				</div>
+			</li>
+			<li>
+				<a href="#accordion3" class="accordion-trigger" data-accord-group="group1">Accordion 3</a>
+				<div id="accordion3" class="accordion-content collapsed">
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In non nisi et nulla vehicula cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas id arcu at purus imperdiet aliquam. Cras lacinia faucibus ligula, id lacinia turpis lobortis quis. Maecenas non accumsan massa. Cras et malesuada magna, porta tempor sem. Maecenas pellentesque consequat dolor ac lobortis. Ut sed ipsum iaculis neque pretium eleifend. Suspendisse lacus nisi, fermentum non turpis ut, iaculis efficitur purus. Phasellus tristique et nisl et cursus. Ut felis metus, cursus eu blandit a, imperdiet a odio. Donec posuere ut lectus eget semper. Aenean sed sem consectetur, venenatis magna eget, egestas lorem. Proin rutrum ac nunc sed laoreet. Aenean efficitur lacus turpis, vel facilisis tellus efficitur in.</p>
+				</div>
+			</li>
+		</ul>
+		
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script type="text/javascript" src="js/QuickAccord.js"></script>
+		<script type="text/javascript">
+			$(".accordion-trigger").QuickAccord();
+		</script>
+	</body>
+</html>
