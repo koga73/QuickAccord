@@ -1,6 +1,7 @@
 ##QuickAccord##
-A simple jQuery accordion plugin. Supports IE8, accessibility standards, and CSS3 transitions.
 *By: AJ Savino*
+
+QuickAccord - A simple jQuery accordion plugin. Supports IE8, accessibility standards, and CSS3 transitions.
 
 ###Implementation###
 Include JS on your page in addition to jQuery. Modify the CSS to fit your needs.
