@@ -1,5 +1,5 @@
 /*
-* QuickAccord v1.0.0 Copyright (c) 2015 AJ Savino
+* QuickAccord v1.0.0 Copyright (c) 2016 AJ Savino
 * 
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,17 @@ var QuickAccord = {
 			var _methods = {
 				init:function(){
 					var $trigger = _vars._$this;
+					
+					//Initialize aria attributes
+					var ariaControls = null;
+					var accordTarget = $trigger.attr(QuickAccord.DATA_ATTR_TARGET) || $trigger.attr("href") || null;
+					if (accordTarget){
+						var id = /^#(\w+)/i.exec(accordTarget);
+						if (id){
+							$trigger.attr("aria-controls", id[1]);
+						}
+					}
+					
 					if (!_methods.isExpanded()){ //Initially collapsed
 						_methods.collapse();
 					} else { //Initially expanded
@@ -50,6 +61,8 @@ var QuickAccord = {
 					var $trigger = _vars._$this;
 					$trigger.removeClass(CLASS_EXPANDED);
 					$trigger.removeClass(CLASS_COLLAPSED);
+					$trigger.removeAttr("aria-expanded");
+					$trigger.removeAttr("aria-controls");
 					$trigger.off("click", _methods._handler_trigger_click);
 					
 					var $targets = _methods._resolveTargets($trigger);
@@ -59,7 +72,7 @@ var QuickAccord = {
 						$targets.removeClass(QuickAccord.CLASS_EXPANDED);
 						$targets.removeClass(QuickAccord.CLASS_COLLAPSING);
 						$targets.removeClass(QuickAccord.CLASS_COLLAPSED);
-						$targets.removeAttr("aria-hidden");
+						$targets.removeAttr("aria-expanded");
 						$targets.each(function(){
 							QuickAccord.TransitionHelper.offTransitionComplete($(this));
 						});
@@ -84,6 +97,7 @@ var QuickAccord = {
 					$trigger = $trigger || _vars._$this;
 					$trigger.removeClass(QuickAccord.CLASS_EXPANDED);
 					$trigger.addClass(QuickAccord.CLASS_COLLAPSED);
+					$trigger.attr("aria-expanded", "false");
 					
 					var $targets = _methods._resolveTargets($trigger);
 					if (!$targets){
@@ -97,7 +111,7 @@ var QuickAccord = {
 							$target.css("height", "0");
 						}
 					});
-					$targets.attr("aria-hidden", "true");
+					$targets.attr("aria-expanded", "false");
 				},
 				
 				_handler_collapse_complete:function(evt){
@@ -112,6 +126,7 @@ var QuickAccord = {
 					$trigger = $trigger || _vars._$this;
 					$trigger.removeClass(QuickAccord.CLASS_COLLAPSED);
 					$trigger.addClass(QuickAccord.CLASS_EXPANDED);
+					$trigger.attr("aria-expanded", "true");
 					
 					var $accordGroupTriggers = null;
 					var accordGroup = $trigger.attr(QuickAccord.DATA_ATTR_GROUP) || null;
@@ -142,7 +157,7 @@ var QuickAccord = {
 					});
 					$targets.removeClass(QuickAccord.CLASS_COLLAPSED);
 					$targets.addClass(QuickAccord.CLASS_EXPANDED);
-					$targets.attr("aria-hidden", "false");
+					$targets.attr("aria-expanded", "true");
 				},
 				
 				_handler_expand_complete:function(evt){
@@ -175,12 +190,9 @@ var QuickAccord = {
 				
 				_resolveTargets:function($trigger){
 					var $accordTargets = null;
-					var accordTarget = $trigger.attr(QuickAccord.DATA_ATTR_TARGET) || null;
-					var accordHref = $trigger.attr("href") || null;
+					var accordTarget = $trigger.attr(QuickAccord.DATA_ATTR_TARGET) || $trigger.attr("href") || null;
 					if (accordTarget){
 						$accordTargets = $(accordTarget);
-					} else if (accordHref){
-						$accordTargets = $(accordHref);
 					}
 					return $accordTargets;
 				}
